@@ -3,6 +3,8 @@ from scp import SCPClient
 import srvConnect
 import os
 import re
+import getopt
+import sys
 
 
 def move(server, src, dst, direction, pat=None):
@@ -30,14 +32,26 @@ def move(server, src, dst, direction, pat=None):
     ssh.close()
 
 
-def main():
-    server = "rnd"
-    src = "/home/copypaste/dir/"
-    dst = "/tmp/testdir/"
-    direction = "get"
-    pat1 = '\.txt$'
-    pat = r'' + pat1 + ''
-    move(server, src, dst, direction, pat)
+def main(argv):
+    method = 'get'
+    pat = None
+
+    for opt, arg in argv:
+        if opt == '-h':
+            print "usage: iltmi.py -n server -s /path/to/file -d /path/to/destination/ [-m [get|put]] [-p regex]"
+        elif opt == '-n': server = arg
+        elif opt == '-s': src = arg
+        elif opt == '-d': dst = arg
+        elif opt == '-m': method = arg
+        elif opt == '-p': pat = arg
+
+    #server = "rnd"
+    #src = "/home/copypaste/dir/"
+    #dst = "/tmp/testdir/"
+    #method = "get"
+    #pat1 = '\.txt$'
+    if pat: pat = r'' + pat + ''
+    move(server, src, dst, method, pat)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
