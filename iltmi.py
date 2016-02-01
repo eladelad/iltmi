@@ -27,7 +27,7 @@ def move(server, src, dst, direction, debug, pat=None):
             if debug: print "Mathing file " + filename + " in " + src
             matched = re.search(pat, filename)
             if matched:
-                if debug: print "Matched file: " + matched
+                if debug: print "Matched file: " + filename
                 src_file = os.path.join(src, filename)
                 dst_file = dst + '/' + os.path.basename(filename)
                 single_file(src_file, dst_file)
