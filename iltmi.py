@@ -47,7 +47,7 @@ def main(argv):
     pat = None
 
     try:
-        opts, args = getopt.getopt(argv, "n:s:d:m:p:")
+        opts, args = getopt.getopt(argv, "n:s:d:m:p:v:")
     except getopt.GetoptError:
         print 'usage: iltmi.py -n server -s /path/to/file -d /path/to/destination/ [-m [get|put]] [-p regex]'
         sys.exit(2)
@@ -55,7 +55,7 @@ def main(argv):
     print opts
 
     for opt, arg in opts:
-        print opt, arg
+        if debug: print opt, arg
         if opt == '-h':
             print "usage: iltmi.py -n server -s /path/to/file -d /path/to/destination/ [-m [get|put]] [-p regex]"
             # sys.exit(0)
@@ -64,7 +64,7 @@ def main(argv):
         elif opt == '-d': dst = arg
         elif opt == '-m': method = arg
         elif opt == '-p': pat = arg
-        elif opt == '-d': debug = True
+        elif opt == '-v': debug = True
 
     # server = "rnd"
     # src = "/home/copypaste/dir/"
