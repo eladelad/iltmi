@@ -6,9 +6,7 @@ import re
 import getopt
 import sys
 
-debug = False
-
-def move(server, src, dst, direction, pat=None):
+def move(server, src, dst, direction, debug, pat=None):
     ssh = srvConnect.srv_connect(server)
     sftp = ssh.open_sftp()
 
@@ -45,6 +43,7 @@ def move(server, src, dst, direction, pat=None):
 def main(argv):
     method = 'get'
     pat = None
+    debug = False
 
     try:
         opts, args = getopt.getopt(argv, "n:s:d:m:p:v:")
@@ -73,7 +72,7 @@ def main(argv):
     # pat1 = '\.txt$'
     if pat: pat = r'' + re.escape(pat) + ''
     if server and src and dst and method:
-        move(server, src, dst, method, pat)
+        move(server, src, dst, method, debug, pat)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
