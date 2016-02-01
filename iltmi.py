@@ -65,7 +65,7 @@ def main(argv):
     # dst = "/tmp/testdir/"
     # method = "get"
     # pat1 = '\.txt$'
-    if pat: pat = r'' + pat + ''
+    if pat: pat = r'' + re.escape(pat) + ''
     if server and src and dst and method:
         move(server, src, dst, method, pat)
 
