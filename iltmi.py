@@ -42,7 +42,7 @@ def main(argv):
     pat = None
 
     try:
-        opts, args = getopt.getopt(argv, "n:s:d:m:p")
+        opts, args = getopt.getopt(argv, "n:s:d:m:p:")
     except getopt.GetoptError:
         print 'usage: iltmi.py -n server -s /path/to/file -d /path/to/destination/ [-m [get|put]] [-p regex]'
         sys.exit(2)
