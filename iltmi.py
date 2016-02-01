@@ -6,6 +6,7 @@ import re
 import getopt
 import sys
 
+debug = False
 
 def move(server, src, dst, direction, pat=None):
     ssh = srvConnect.srv_connect(server)
@@ -25,12 +26,16 @@ def move(server, src, dst, direction, pat=None):
     def multi_file():
         files = sftp.listdir(src)
         for filename in files:
+            if debug: print "Mathing file " + filename + " in " + src
             matched = re.search(pat, filename)
             if matched:
+                if debug: print "Matched file: " + matched
                 src_file = os.path.join(src, filename)
                 dst_file = dst + '/' + os.path.basename(filename)
                 single_file(src_file, dst_file)
 
+    if debug:
+        print "Server: " + server + " Source: " + src + " Destination " + dst + " Direction " + direction + " Pattern " + pat
     if pat: multi_file()
     else: single_file()
 
@@ -59,6 +64,7 @@ def main(argv):
         elif opt == '-d': dst = arg
         elif opt == '-m': method = arg
         elif opt == '-p': pat = arg
+        elif opt == '-d': debug = True
 
     # server = "rnd"
     # src = "/home/copypaste/dir/"
