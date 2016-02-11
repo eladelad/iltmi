@@ -2,7 +2,7 @@ import json
 from paramiko import SSHClient
 
 
-def srv_connect(server, conf_file='srv_conf'):
+def srv_connect(server, conf_file='srv_conf.json'):
     conf_file_h = open(conf_file, 'r')
     conf = conf_file_h.read()
     servers = json.loads(conf)

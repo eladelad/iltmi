@@ -7,19 +7,19 @@ import getopt
 import sys
 
 
-def move(server, src, dst, direction, debug, pat=None):
+def move(server, src, dst, method, debug, pat=None):
     ssh = srvConnect.srv_connect(server)
     sftp = ssh.open_sftp()
 
     def single_file(src=src, dst=dst):
-        if os.path.isdir(dst) and direction == 'put':
+        if os.path.isdir(dst) and method == 'put':
             exit()
         if os.path.isdir(dst):
-            dst = dst + '/' + src.split('/')[-1]
-            print dst
-        if direction == 'put':
+            if not dst.endswith('/'): dst += '/'
+            dst += src.split('/')[-1]
+        if method == 'put':
             sftp.put(src, dst)
-        elif direction == 'get':
+        elif method == 'get':
             sftp.get(src, dst)
 
     def multi_file():
@@ -34,9 +34,13 @@ def move(server, src, dst, direction, debug, pat=None):
                 single_file(src_file, dst_file)
 
     if debug:
-        print "Server: " + server + " Source: " + src + " Destination " + dst + " Direction " + direction + " Pattern " + pat
+        print "Server: " + server + " Source: " + src + " Destination " + dst + " Method " + method + " Pattern " + str(pat)
     if pat: multi_file()
-    else: single_file()
+    elif dst.endswith('/') and src.endswith('/'):
+        pat = '\.*'
+        multi_file()
+    else:
+        single_file()
 
     ssh.close()
 
