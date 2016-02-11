@@ -1,4 +1,4 @@
 {"moves":[
-  {"server": "rnd","src": "/home/copypaste/dir/","dst": "/tmp/","method": "get","pat": "\\.txt$"},
-  {"server": "rnd","src": "/home/copypaste/dir/4.jpg","dst": "/tmp/33.jpg","method": "get"}
+  {"server": "rnd","src": "/home/dir/","dst": "/tmp/","method": "get","pat": "\\.txt$"},
+  {"server": "rnd","src": "/home/dir/4.jpg","dst": "/tmp/33.jpg","method": "get"}
 ]}
