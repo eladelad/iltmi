@@ -21,9 +21,13 @@ def move(server, src, dst, method, debug, pat=None):
             sftp.put(src, dst)
         elif method == 'get':
             sftp.get(src, dst)
+            sftp.remove(src)
 
     def multi_file():
-        files = sftp.listdir(src)
+        if method == 'get':
+            files = sftp.listdir(src)
+        else:
+            files = os.listdir(src)
         for filename in files:
             if debug: print "Mathing file " + filename + " in " + src
             matched = re.search(pat, filename)
