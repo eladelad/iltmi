@@ -19,6 +19,7 @@ def move(server, src, dst, method, debug, pat=None):
             dst += src.split('/')[-1]
         if method == 'put':
             sftp.put(src, dst)
+            os.remove(src)
         elif method == 'get':
             sftp.get(src, dst)
             sftp.remove(src)
